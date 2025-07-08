@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ContactVault Dashboard</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?display=swap&family=Noto+Sans:wght@400;500;700;900&family=Public+Sans:wght@400;500;700;900" />
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link rel="stylesheet" href="assets/styles.css" />
+  <style>
+    .password-wrapper {
+      position: relative;
+      width: 100%;
+    }
+    .toggle-password {
+      position: absolute;
+      top: 50%;
+      right: 1rem;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      color: #46a080;
+    }
+  </style>
+</head>
+<body class="bg-[#f8fcfa] min-h-screen" style='font-family: "Public Sans", "Noto Sans", sans-serif;'>
+
+  <!-- LOGIN PAGE (full screen, only visible if not logged in) -->
+  <div id="login-fullscreen" class="fixed inset-0 flex flex-col items-center justify-center bg-[#f8fcfa] z-50">
+    <h1 class="text-3xl md:text-4xl font-extrabold text-[#019863] mb-8 text-center">Welcome to ContactVault</h1>
+    <form id="login-form" class="w-full max-w-sm bg-white rounded-xl shadow p-8 flex flex-col gap-5">
+      <h2 class="text-2xl font-bold text-center mb-2 text-[#0c1c17]">Login to ContactVault</h2>
+      <div>
+        <label class="block text-[#0c1c17] font-medium mb-1" for="email">Email</label>
+        <input type="email" id="email" class="form-input w-full rounded-lg border-[#cde9df] bg-[#f8fcfa] h-12 px-4 text-base" placeholder="Enter your email" required>
+      </div>
+      <div>
+        <label class="block text-[#0c1c17] font-medium mb-1" for="password">Password</label>
+        <div class="password-wrapper">
+          <input type="password" id="password" class="form-input w-full rounded-lg border-[#cde9df] bg-[#f8fcfa] h-12 px-4 text-base pr-10" placeholder="Enter your password" required>
+          <button type="button" id="toggle-password" class="toggle-password" aria-label="Show password">
+            <!-- Eye open SVG (default) -->
+            <svg id="eye-open" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M12 5C7 5 2.73 8.11 1 12c1.73 3.89 6 7 11 7s9.27-3.11 11-7c-1.73-3.89-6-7-11-7zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10zm0-8a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/>
+            </svg>
+            <!-- Eye closed SVG (hidden by default) -->
+            <svg id="eye-closed" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 24 24" style="display:none;">
+              <path fill="currentColor" d="M12 5c-1.7 0-3.36.37-4.86 1.08L5.7 4.64A1 1 0 1 0 4.28 6.05l15.67 15.67a1 1 0 0 0 1.41-1.41l-2.07-2.07A11.93 11.93 0 0 0 23 12c-1.73-3.89-6-7-11-7Zm-7.73 1.05L3.7 6.64C2.27 8.11 1 10.03 1 12c0 .97.27 1.89.7 2.7l2.07-2.07A11.93 11.93 0 0 1 1 12c1.73-3.89 6-7 11-7 1.7 0 3.36.37 4.86 1.08l-2.07 2.07A7.97 7.97 0 0 0 12 5Zm0 14c-5 0-9.27-3.11-11-7 .73-1.63 2.05-3.07 3.7-4.05l2.07 2.07A7.97 7.97 0 0 1 12 19Zm0-2a5 5 0 0 1-5-5c0-.34.03-.68.08-1l-2.07-2.07A11.93 11.93 0 0 0 1 12c1.73 3.89 6 7 11 7 1.7 0 3.36-.37 4.86-1.08l-2.07-2.07A7.97 7.97 0 0 1 12 17Z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <button type="submit" class="bg-[#019863] text-white font-semibold py-3 rounded-lg hover:bg-[#017a50] transition">Login</button>
+      <p id="login-message" class="text-center text-sm mt-2"></p>
+      <p class="text-center text-sm mt-4">
+        Don’t have an account?
+        <a href="signup.html" class="text-[#019863] font-semibold hover:underline">Sign up here</a>
+      </p>
+    </form>
+  </div>
+
+  <!-- DASHBOARD (hidden until logged in) -->
+  <div id="dashboard-section" style="display:none;">
+    <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#e6f4ef] px-10 py-3 relative">
+      <div class="flex items-center gap-4 text-[#0c1c17]">
+        <div class="size-4">
+          <!-- Logo SVG -->
+          <svg viewBox="0 0 48 48" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M24 4H42V17.3333V30.6667H24V44H6V30.6667V17.3333H24V4Z" fill="currentColor"></path></svg>
+        </div>
+        <h2 class="text-[#0c1c17] text-lg font-bold leading-tight tracking-[-0.015em]">ContactVault</h2>
+      </div>
+      <nav class="desktop-nav flex flex-1 justify-end gap-8 items-center">
+        <a class="text-[#0c1c17] text-sm font-medium" href="dashboard.html">Dashboard</a>
+        <a class="text-[#0c1c17] text-sm font-medium" href="contacts.html">Contacts</a>
+        <a class="text-[#0c1c17] text-sm font-medium" href="add-contact.html">Add Contact</a>
+        <a class="text-[#0c1c17] text-sm font-medium" href="signup.html">Sign Up</a>
+        <a class="text-[#0c1c17] text-sm font-medium" href="contact-profile.html">Profile</a>
+      </nav>
+      <div class="hamburger" id="hamburger-menu" aria-label="Open navigation" tabindex="0">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <nav class="mobile-nav flex-col gap-4 items-end px-8 py-4 absolute right-0 top-16 bg-[#f8fcfa] w-full hidden" id="mobile-nav">
+        <a class="text-[#0c1c17] text-base font-medium py-2" href="dashboard.html">Dashboard</a>
+        <a class="text-[#0c1c17] text-base font-medium py-2" href="contacts.html">Contacts</a>
+        <a class="text-[#0c1c17] text-base font-medium py-2" href="add-contact.html">Add Contact</a>
+        <a class="text-[#0c1c17] text-base font-medium py-2" href="signup.html">Sign Up</a>
+        <a class="text-[#0c1c17] text-base font-medium py-2" href="contact-profile.html">Profile</a>
+      </nav>
+    </header>
+    <script>
+      // Hamburger menu toggle
+      const hamburger = document.getElementById('hamburger-menu');
+      const mobileNav = document.getElementById('mobile-nav');
+      hamburger && hamburger.addEventListener('click', () => {
+        mobileNav.classList.toggle('hidden');
+      });
+      hamburger && hamburger.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') mobileNav.classList.toggle('hidden');
+      });
+    </script>
+
+    <!-- DASHBOARD CONTENT (replace/add your real dashboard here) -->
+    <main class="p-8">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+        <a href="contacts.html" class="bg-[#f8fcfa] border border-[#e6f4ef] rounded p-6 flex flex-col items-center hover:shadow-lg transition cursor-pointer">
+          <span class="text-4xl text-[#019863] mb-2">👥</span>
+          <span class="font-semibold text-lg mb-1">Total Contacts</span>
+          <span class="text-2xl font-bold">10</span>
+        </a>
+        <a href="contacts.html#favorites" class="bg-[#f8fcfa] border border-[#e6f4ef] rounded p-6 flex flex-col items-center hover:shadow-lg transition cursor-pointer">
+          <span class="text-4xl text-[#019863] mb-2">⭐</span>
+          <span class="font-semibold text-lg mb-1">Favorites</span>
+          <span class="text-2xl font-bold">2</span>
+        </a>
+        <a href="contacts.html#inactive" class="bg-[#f8fcfa] border border-[#e6f4ef] rounded p-6 flex flex-col items-center hover:shadow-lg transition cursor-pointer">
+          <span class="text-4xl text-[#019863] mb-2">⏸️</span>
+          <span class="font-semibold text-lg mb-1">Inactive</span>
+          <span class="text-2xl font-bold">3</span>
+        </a>
+        <a href="contacts.html#companies" class="bg-[#f8fcfa] border border-[#e6f4ef] rounded p-6 flex flex-col items-center hover:shadow-lg transition cursor-pointer">
+          <span class="text-4xl text-[#019863] mb-2">🏢</span>
+          <span class="font-semibold text-lg mb-1">Companies</span>
+          <span class="text-2xl font-bold">10</span>
+        </a>
+      </div>
+      <div class="flex flex-wrap gap-4 justify-center mt-8">
+        <a href="add-contact.html"
+           class="flex min-w-[120px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-[#019863] text-[#f8fcfa] text-base font-bold leading-normal tracking-[0.015em] hover:bg-[#017a50] transition">
+          Add Contact
+        </a>
+        <a href="#" class="flex min-w-[120px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-[#e6f4ef] text-[#0c1c17] text-base font-bold leading-normal tracking-[0.015em] hover:bg-[#d2efe3] transition">
+          Import VCard
+        </a>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // Show login page if not logged in, else show dashboard
+    function showLogin(show) {
+      document.getElementById('login-fullscreen').style.display = show ? 'flex' : 'none';
+      document.getElementById('dashboard-section').style.display = show ? 'none' : '';
+    }
+
+    // On page load
+    if(localStorage.getItem('isLoggedIn') === 'true') {
+      showLogin(false);
+    } else {
+      showLogin(true);
+    }
+
+    // Password show/hide toggle
+    document.getElementById('toggle-password').addEventListener('click', function(e) {
+      e.preventDefault();
+      const pwd = document.getElementById('password');
+      const eyeOpen = document.getElementById('eye-open');
+      const eyeClosed = document.getElementById('eye-closed');
+      if (pwd.type === 'password') {
+        pwd.type = 'text';
+        eyeOpen.style.display = 'none';
+        eyeClosed.style.display = 'block';
+      } else {
+        pwd.type = 'password';
+        eyeOpen.style.display = 'block';
+        eyeClosed.style.display = 'none';
+      }
+    });
+
+    // Login logic
+    document.getElementById('login-form').addEventListener('submit', function(e){
+      e.preventDefault();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const msg = document.getElementById('login-message');
+      if(email === "nnm23ad005@nmamit.in" && password === "password123") {
+        localStorage.setItem('isLoggedIn', 'true');
+        showLogin(false);
+      } else {
+        msg.textContent = "Invalid email or password.";
+        msg.className = "text-center text-red-600 mt-2";
+      }
+    });
+  </script>
+</body>
+</html>

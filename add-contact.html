@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Add Contact | ContactVault</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?display=swap&family=Noto+Sans:wght@400;500;700;900&family=Public+Sans:wght@400;500;700;900" />
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body class="bg-[#f8fcfa] min-h-screen" style='font-family: "Public Sans", "Noto Sans", sans-serif;'>
+  <!-- Doodle Background SVGs (darker shades) -->
+  <div style="pointer-events:none; position:fixed; z-index:0; top:0; left:0; width:100vw; height:100vh; overflow:hidden;">
+    <!-- Top Left Doodle -->
+    <svg width="260" height="260" viewBox="0 0 260 260" fill="none" style="position:absolute;top:-60px;left:-60px;opacity:0.18;">
+      <ellipse cx="130" cy="120" rx="120" ry="100" fill="#14532d"/>
+      <path d="M60 100 Q130 40 200 100" stroke="#0e7490" stroke-width="10" fill="none"/>
+      <circle cx="60" cy="140" r="20" fill="#0369a1"/>
+    </svg>
+    <!-- Bottom Right Doodle -->
+    <svg width="260" height="260" viewBox="0 0 260 260" fill="none" style="position:absolute;bottom:-60px;right:-60px;opacity:0.20;">
+      <rect x="60" y="100" width="140" height="80" rx="40" fill="#0e7490"/>
+      <path d="M80 160 Q130 240 180 160" stroke="#14532d" stroke-width="10" fill="none"/>
+      <circle cx="180" cy="140" r="18" fill="#166534"/>
+    </svg>
+    <!-- Center Doodle (optional, subtle) -->
+    <svg width="140" height="140" viewBox="0 0 140 140" fill="none" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);opacity:0.09;">
+      <ellipse cx="70" cy="70" rx="70" ry="55" fill="#0e7490"/>
+      <path d="M30 70 Q70 20 110 70" stroke="#166534" stroke-width="7" fill="none"/>
+      <circle cx="70" cy="70" r="13" fill="#14532d"/>
+    </svg>
+  </div>
+  <!-- Redirect to login if not authenticated -->
+  <script>
+    if(localStorage.getItem('isLoggedIn') !== 'true') {
+      window.location.href = "login.html";
+    }
+  </script>
+  <!-- Navigation/Header -->
+  <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#e6f4ef] px-10 py-3 relative">
+    <div class="flex items-center gap-4 text-[#0c1c17]">
+      <div class="size-4">
+        <svg viewBox="0 0 48 48" fill="none">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M24 4H42V17.3333V30.6667H24V44H6V30.6667V17.3333H24V4Z" fill="currentColor"></path>
+        </svg>
+      </div>
+      <h2 class="text-[#0c1c17] text-lg font-bold leading-tight tracking-[-0.015em]">ContactVault</h2>
+    </div>
+    <nav class="desktop-nav flex flex-1 justify-end gap-8 items-center">
+      <a class="text-[#0c1c17] text-sm font-medium" href="dashboard.html">Dashboard</a>
+      <a class="text-[#0c1c17] text-sm font-medium" href="contacts.html">Contacts</a>
+      <a class="text-[#0c1c17] text-sm font-medium" href="add-contact.html">Add Contact</a>
+      <a class="text-[#0c1c17] text-sm font-medium" href="signup.html">Sign Up</a>
+      <a class="text-[#0c1c17] text-sm font-medium" href="contact-profile.html">Profile</a>
+    </nav>
+    <div class="hamburger" id="hamburger-menu" aria-label="Open navigation" tabindex="0">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <nav class="mobile-nav flex-col gap-4 items-end px-8 py-4 absolute right-0 top-16 bg-[#f8fcfa] w-full hidden" id="mobile-nav">
+      <a class="text-[#0c1c17] text-base font-medium py-2" href="dashboard.html">Dashboard</a>
+      <a class="text-[#0c1c17] text-base font-medium py-2" href="contacts.html">Contacts</a>
+      <a class="text-[#0c1c17] text-base font-medium py-2" href="add-contact.html">Add Contact</a>
+      <a class="text-[#0c1c17] text-base font-medium py-2" href="signup.html">Sign Up</a>
+      <a class="text-[#0c1c17] text-base font-medium py-2" href="register.html">Register</a>
+      <a class="text-[#0c1c17] text-base font-medium py-2" href="contact-profile.html">Profile</a>
+    </nav>
+  </header>
+  <script>
+    // Hamburger menu toggle
+    const hamburger = document.getElementById('hamburger-menu');
+    const mobileNav = document.getElementById('mobile-nav');
+    hamburger && hamburger.addEventListener('click', () => {
+      mobileNav.classList.toggle('hidden');
+    });
+    hamburger && hamburger.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') mobileNav.classList.toggle('hidden');
+    });
+  </script>
+
+  <main class="flex flex-1 justify-center py-8 px-2">
+    <form class="flex flex-col w-full max-w-lg bg-white rounded-xl shadow p-8 gap-4">
+      <h1 class="text-2xl font-bold mb-2 text-center">Add Contact</h1>
+      <!-- Avatar Upload -->
+      <label class="flex flex-col gap-2">
+        <span class="text-[#0c1c17] text-base font-medium">Avatar</span>
+        <input type="file" accept="image/*" class="form-input file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:bg-[#e6f4ef] file:text-[#019863]" />
+      </label>
+      <!-- Name -->
+      <label class="flex flex-col gap-2">
+        <span class="text-[#0c1c17] text-base font-medium">Name</span>
+        <input type="text" placeholder="Enter Name" class="form-input" required />
+      </label>
+      <!-- Phone -->
+      <label class="flex flex-col gap-2">
+        <span class="text-[#0c1c17] text-base font-medium">Phone</span>
+        <input type="tel" placeholder="Enter Phone" class="form-input" required />
+      </label>
+      <!-- Email -->
+      <label class="flex flex-col gap-2">
+        <span class="text-[#0c1c17] text-base font-medium">Email</span>
+        <input type="email" placeholder="Enter Email" class="form-input" required />
+      </label>
+      <!-- Address -->
+      <label class="flex flex-col gap-2">
+        <span class="text-[#0c1c17] text-base font-medium">Address</span>
+        <input type="text" placeholder="Enter Address" class="form-input" />
+      </label>
+      <!-- Birthday -->
+      <label class="flex flex-col gap-2">
+        <span class="text-[#0c1c17] text-base font-medium">Birthday</span>
+        <input type="date" class="form-input" />
+      </label>
+      <!-- Tags -->
+      <label class="flex flex-col gap-2">
+        <span class="text-[#0c1c17] text-base font-medium">Tags</span>
+        <input type="text" placeholder="Add Tags" class="form-input" />
+      </label>
+      <!-- Groups -->
+      <label class="flex flex-col gap-2">
+        <span class="text-[#0c1c17] text-base font-medium">Groups</span>
+        <input type="text" placeholder="Select Groups" class="form-input" />
+      </label>
+      <!-- Notes -->
+      <label class="flex flex-col gap-2">
+        <span class="text-[#0c1c17] text-base font-medium">Notes</span>
+        <textarea placeholder="Add Notes" class="form-input min-h-[64px]"></textarea>
+      </label>
+      <!-- Buttons -->
+      <div class="flex gap-4 justify-end mt-4">
+        <a href="contacts.html" class="flex items-center justify-center rounded-lg h-10 px-4 bg-[#e6f4ef] text-[#0c1c17] text-sm font-bold hover:bg-[#d2efe3] transition">Cancel</a>
+        <button type="submit" class="flex items-center justify-center rounded-lg h-10 px-4 bg-[#019863] text-[#f8fcfa] text-sm font-bold hover:bg-[#017a50] transition">Save</button>
+      </div>
+    </form>
+  </main>
+</body>
+</html>

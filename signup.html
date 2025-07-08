@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sign Up | ContactVault</title>
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?display=swap&family=Noto+Sans:wght@400;500;700;900&family=Public+Sans:wght@400;500;700;900"
+  />
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <!-- Custom Styles (for nav/hamburger) -->
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body class="bg-[#f8fcfa] min-h-screen" style='font-family: "Public Sans", "Noto Sans", sans-serif;'>
+  <!-- Doodle Background SVGs (darker shades) -->
+  <div style="pointer-events:none; position:fixed; z-index:0; top:0; left:0; width:100vw; height:100vh; overflow:hidden;">
+    <!-- Top Left Doodle -->
+    <svg width="260" height="260" viewBox="0 0 260 260" fill="none" style="position:absolute;top:-60px;left:-60px;opacity:0.18;">
+      <ellipse cx="130" cy="120" rx="120" ry="100" fill="#14532d"/>
+      <path d="M60 100 Q130 40 200 100" stroke="#0e7490" stroke-width="10" fill="none"/>
+      <circle cx="60" cy="140" r="20" fill="#0369a1"/>
+    </svg>
+    <!-- Bottom Right Doodle -->
+    <svg width="260" height="260" viewBox="0 0 260 260" fill="none" style="position:absolute;bottom:-60px;right:-60px;opacity:0.20;">
+      <rect x="60" y="100" width="140" height="80" rx="40" fill="#0e7490"/>
+      <path d="M80 160 Q130 240 180 160" stroke="#14532d" stroke-width="10" fill="none"/>
+      <circle cx="180" cy="140" r="18" fill="#166534"/>
+    </svg>
+    <!-- Center Doodle (optional, subtle) -->
+    <svg width="140" height="140" viewBox="0 0 140 140" fill="none" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);opacity:0.09;">
+      <ellipse cx="70" cy="70" rx="70" ry="55" fill="#0e7490"/>
+      <path d="M30 70 Q70 20 110 70" stroke="#166534" stroke-width="7" fill="none"/>
+      <circle cx="70" cy="70" r="13" fill="#14532d"/>
+    </svg>
+  </div>
+  <!-- Responsive Navigation/Header -->
+  <header id="main-header" class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#e6f4ef] px-4 md:px-10 py-3 relative">
+    <div class="flex items-center gap-4 text-[#0c1c17]">
+      <div class="size-4">
+        <svg viewBox="0 0 48 48" fill="none">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M24 4H42V17.3333V30.6667H24V44H6V30.6667V17.3333H24V4Z" fill="currentColor"></path>
+        </svg>
+      </div>
+      <h2 class="text-[#0c1c17] text-lg font-bold leading-tight tracking-[-0.015em]">ContactVault</h2>
+    </div>
+    <nav class="desktop-nav flex flex-1 justify-end gap-4 md:gap-8 items-center">
+      <a class="text-[#0c1c17] text-sm font-medium hover:underline" href="dashboard.html">Dashboard</a>
+      <a class="text-[#0c1c17] text-sm font-medium hover:underline" href="contacts.html">Contacts</a>
+      <a class="text-[#0c1c17] text-sm font-medium hover:underline" href="add-contact.html">Add Contact</a>
+      <a class="text-[#019863] text-sm font-bold underline" href="signup.html">Sign Up</a>
+      <a class="text-[#0c1c17] text-sm font-medium hover:underline" href="contact-profile.html">Profile</a>
+    </nav>
+    <div class="hamburger" id="hamburger-menu" aria-label="Open navigation" tabindex="0">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <nav class="mobile-nav flex-col gap-4 items-end px-8 py-4 absolute right-0 top-16 bg-[#f8fcfa] w-full hidden" id="mobile-nav">
+      <a class="text-[#0c1c17] text-base font-medium py-2" href="dashboard.html">Dashboard</a>
+      <a class="text-[#0c1c17] text-base font-medium py-2" href="contacts.html">Contacts</a>
+      <a class="text-[#0c1c17] text-base font-medium py-2" href="add-contact.html">Add Contact</a>
+      <a class="text-[#019863] text-base font-bold py-2 underline" href="signup.html">Sign Up</a>
+      <a class="text-[#0c1c17] text-base font-medium py-2" href="contact-profile.html">Profile</a>
+    </nav>
+  </header>
+  <script>
+    // Hamburger menu toggle
+    const hamburger = document.getElementById('hamburger-menu');
+    const mobileNav = document.getElementById('mobile-nav');
+    hamburger && hamburger.addEventListener('click', () => {
+      mobileNav.classList.toggle('hidden');
+    });
+    hamburger && hamburger.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') mobileNav.classList.toggle('hidden');
+    });
+  </script>
+
+  <!-- Sign Up Form Content -->
+  <div class="flex flex-1 justify-center py-5 px-2">
+    <div class="flex flex-col w-full max-w-[512px] py-5 mx-auto">
+      <h2 class="text-[#0c1c17] text-[28px] font-bold leading-tight px-4 text-center pb-3 pt-5">Sign up for ContactVault</h2>
+      <form id="signup-form">
+        <!-- Email Field -->
+        <div class="flex flex-wrap items-end gap-4 px-4 py-3">
+          <label class="flex flex-col min-w-40 flex-1">
+            <p class="text-[#0c1c17] text-base font-medium leading-normal pb-2">Email</p>
+            <input
+              id="email"
+              type="email"
+              placeholder="Enter your email"
+              class="form-input w-full rounded-lg text-[#0c1c17] border border-[#cde9df] bg-[#f8fcfa] h-14 placeholder:text-[#46a080] p-[15px] text-base"
+              required
+            />
+          </label>
+        </div>
+        <!-- Password Field -->
+        <div class="flex flex-wrap items-end gap-4 px-4 py-3">
+          <label class="flex flex-col min-w-40 flex-1">
+            <p class="text-[#0c1c17] text-base font-medium leading-normal pb-2">Password</p>
+            <div class="flex w-full items-stretch rounded-lg">
+              <input
+                id="password"
+                type="password"
+                placeholder="Enter your password"
+                class="form-input w-full rounded-l-lg text-[#0c1c17] border border-[#cde9df] bg-[#f8fcfa] h-14 placeholder:text-[#46a080] p-[15px] pr-2 text-base border-r-0"
+                required
+              />
+              <button
+                type="button"
+                tabindex="-1"
+                id="toggle-password"
+                class="text-[#46a080] flex border border-[#cde9df] bg-[#f8fcfa] items-center justify-center pr-[15px] rounded-r-lg border-l-0 focus:outline-none"
+                style="min-width:48px;"
+                aria-label="Show password"
+              >
+                <svg id="eye-icon" xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" fill="currentColor" viewBox="0 0 256 256">
+                  <path
+                    d="M247.31,124.76c-.35-.79-8.82-19.58-27.65-38.41C194.57,61.26,162.88,48,128,48S61.43,61.26,36.34,86.35C17.51,105.18,9,124,8.69,124.76a8,8,0,0,0,0,6.5c.35.79,8.82,19.57,27.65,38.4C61.43,194.74,93.12,208,128,208s66.57-13.26,91.66-38.34c18.83-18.83,27.3-37.61,27.65-38.4A8,8,0,0,0,247.31,124.76ZM128,192c-30.78,0-57.67-11.19-79.93-33.25A133.47,133.47,0,0,1,25,128,133.33,133.33,0,0,1,48.07,97.25C70.33,75.19,97.22,64,128,64s57.67,11.19,79.93,33.25A133.46,133.46,0,0,1,231.05,128C223.84,141.46,192.43,192,128,192Zm0-112a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Z"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+          </label>
+        </div>
+        <!-- Password Strength -->
+        <div class="flex flex-col gap-3 p-4">
+          <div class="flex gap-6 justify-between"><p class="text-[#0c1c17] text-base font-medium leading-normal">Password Strength</p></div>
+          <div class="rounded bg-[#cde9df]"><div id="strength-bar" class="h-2 rounded bg-[#019863]" style="width: 25%;"></div></div>
+          <p class="text-[#46a080] text-sm font-normal leading-normal" id="strength-label">Weak</p>
+        </div>
+        <p class="text-[#46a080] text-sm font-normal leading-normal pb-3 pt-1 px-4">
+          Password must be at least 8 characters long and include a number, a special character, and an uppercase letter.
+        </p>
+        <!-- Sign Up Button -->
+        <div class="flex px-4 py-3">
+          <button
+            class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-5 flex-1 bg-[#019863] text-[#f8fcfa] text-base font-bold leading-normal tracking-[0.015em]"
+            type="submit"
+          >
+            <span class="truncate">Sign Up</span>
+          </button>
+        </div>
+        <p class="text-center text-sm mt-4">
+          Already have an account?
+          <a href="login.html" class="text-[#019863] font-semibold hover:underline">Login here</a>
+        </p>
+        <p id="signup-message" class="text-center text-sm mt-2"></p>
+      </form>
+      <p class="text-[#46a080] text-sm font-normal leading-normal pb-3 pt-1 px-4 text-center">Or sign up with</p>
+      <!-- Social Buttons -->
+      <div class="flex justify-center">
+        <div class="flex flex-1 gap-3 flex-wrap px-4 py-3 max-w-[480px] justify-center">
+          <button
+            class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-[#e6f4ef] text-[#0c1c17] text-sm font-bold leading-normal tracking-[0.015em] grow"
+          >
+            <span class="truncate">Continue with Google</span>
+          </button>
+          <button
+            class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-[#e6f4ef] text-[#0c1c17] text-sm font-bold leading-normal tracking-[0.015em] grow"
+          >
+            <span class="truncate">Continue with Facebook</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    // Password strength check
+    const passwordInput = document.getElementById('password');
+    const strengthBar = document.getElementById('strength-bar');
+    const strengthLabel = document.getElementById('strength-label');
+    passwordInput.addEventListener('input', function() {
+      const val = passwordInput.value;
+      let strength = 0;
+      if(val.length >= 8) strength++;
+      if(/[A-Z]/.test(val)) strength++;
+      if(/[0-9]/.test(val)) strength++;
+      if(/[^A-Za-z0-9]/.test(val)) strength++;
+      let width = ['25%','50%','75%','100%'][strength-1] || '25%';
+      let label = ['Weak','Fair','Good','Strong'][strength-1] || 'Weak';
+      strengthBar.style.width = width;
+      strengthLabel.textContent = label;
+      strengthLabel.className = "text-[#46a080] text-sm font-normal leading-normal";
+    });
+
+    // Password show/hide toggle
+    document.getElementById('toggle-password').addEventListener('click', function() {
+      const pwd = document.getElementById('password');
+      const eye = document.getElementById('eye-icon');
+      if (pwd.type === 'password') {
+        pwd.type = 'text';
+        eye.innerHTML = `<path d="M128,56c-47.06,0-87.7,30.6-111.06,57.18a16,16,0,0,0,0,21.64C40.3,169.4,80.94,200,128,200s87.7-30.6,111.06-57.18a16,16,0,0,0,0-21.64C215.7,86.6,175.06,56,128,56Zm0,120c-39.7,0-73.55-24.43-94.53-48C54.45,104.43,88.3,80,128,80s73.55,24.43,94.53,48C201.55,151.57,167.7,176,128,176Zm0-88a40,40,0,1,0,40,40A40,40,0,0,0,128,88Zm0,64a24,24,0,1,1,24-24A24,24,0,0,1,128,152Z"/>`;
+      } else {
+        pwd.type = 'password';
+        eye.innerHTML = `<path
+          d="M247.31,124.76c-.35-.79-8.82-19.58-27.65-38.41C194.57,61.26,162.88,48,128,48S61.43,61.26,36.34,86.35C17.51,105.18,9,124,8.69,124.76a8,8,0,0,0,0,6.5c.35.79,8.82,19.57,27.65,38.4C61.43,194.74,93.12,208,128,208s66.57-13.26,91.66-38.34c18.83-18.83,27.3-37.61,27.65-38.4A8,8,0,0,0,247.31,124.76ZM128,192c-30.78,0-57.67-11.19-79.93-33.25A133.47,133.47,0,0,1,25,128,133.33,133.33,0,0,1,48.07,97.25C70.33,75.19,97.22,64,128,64s57.67,11.19,79.93,33.25A133.46,133.46,0,0,1,231.05,128C223.84,141.46,192.43,192,128,192Zm0-112a48,48,0,1,0,48,48A48.05,48.05,0,0,0,128,80Zm0,80a32,32,0,1,1,32-32A32,32,0,0,1,128,160Z"
+        ></path>`;
+      }
+    });
+
+    // Signup logic (demo: just redirect to login and show message)
+    document.getElementById('signup-form').addEventListener('submit', function(e){
+      e.preventDefault();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const msg = document.getElementById('signup-message');
+      // Demo: just redirect to login and show message
+      msg.textContent = "Account created! Please login.";
+      msg.className = "text-center text-green-600 mt-2";
+      setTimeout(function(){
+        window.location.href = "login.html";
+      }, 1200);
+    });
+  </script>
+</body>
+</html>
