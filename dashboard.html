@@ -2,184 +2,244 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Dashboard | ContactVault</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?display=swap&family=Noto+Sans:wght@400;500;700;900&family=Public+Sans:wght@400;500;700;900" />
-  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ContactVault Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/styles.css" />
-  <style>
-    /* Animated gradient blob background */
-    #dashboard-blob {
-      position: fixed;
-      top: -120px;
-      left: -80px;
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle at 40% 40%, #a7f3d0 0%, #34d399 80%, transparent 100%);
-      opacity: 0.35;
-      filter: blur(80px);
-      z-index: 0;
-      pointer-events: none;
-      animation: blobmove 12s infinite alternate;
-    }
-    @keyframes blobmove {
-      0% { transform: scale(1) translateY(0);}
-      100% { transform: scale(1.15) translateY(60px);}
-    }
-
-    /* Motivational quote style */
-    #dashboard-quote {
-      font-size: 1.15rem;
-      color: #34d399;
-      font-weight: 500;
-      margin-bottom: 2rem;
-      text-align: center;
-      letter-spacing: 0.01em;
-      transition: color 0.3s;
-    }
-
-    /* Confetti styles */
-    .confetti {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      pointer-events: none;
-      z-index: 100;
-    }
-    .confetti-piece {
-      position: absolute;
-      width: 10px;
-      height: 18px;
-      background: linear-gradient(135deg, #34d399, #019863, #fbbf24, #3b82f6, #f472b6);
-      border-radius: 3px;
-      opacity: 0.85;
-      will-change: transform, opacity;
-      animation: confetti-fall 1.2s linear forwards;
-    }
-    @keyframes confetti-fall {
-      to {
-        transform: translateY(100vh) rotate(360deg);
-        opacity: 0.1;
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#00B894',
+            accent: '#55EFC4',
+            bgMain: '#F0FDF9',
+            cardBg: '#FFFFFF',
+            textDark: '#022B26',
+          },
+          fontFamily: {
+            sans: ['Public Sans', 'sans-serif']
+          },
+          boxShadow: {
+            card: '0 4px 12px rgba(0, 0, 0, 0.08)'
+          }
+        }
       }
     }
-  </style>
-</head>
-<body class="bg-[#f8fcfa] min-h-screen" style='font-family: "Public Sans", "Noto Sans", sans-serif;'>
-  <!-- Animated Blob Background -->
-  <div id="dashboard-blob"></div>
-  <!-- Confetti Container -->
-  <div id="confetti-container" class="confetti"></div>
-
-  <!-- Navigation/Header -->
-  <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#e6f4ef] px-10 py-3 relative">
-    <div class="flex items-center gap-4 text-[#0c1c17]">
-      <div class="size-4">
-        <svg viewBox="0 0 48 48" fill="none">
-          <path fill-rule="evenodd" clip-rule="evenodd" d="M24 4H42V17.3333V30.6667H24V44H6V30.6667V17.3333H24V4Z" fill="currentColor"></path>
-        </svg>
-      </div>
-      <h2 class="text-[#0c1c17] text-lg font-bold leading-tight tracking-[-0.015em]">ContactVault</h2>
-    </div>
-    <nav class="desktop-nav flex flex-1 justify-end gap-8 items-center">
-      <a class="text-[#0c1c17] text-sm font-medium" href="dashboard.html">Dashboard</a>
-      <a class="text-[#0c1c17] text-sm font-medium" href="contacts.html">Contacts</a>
-      <a class="text-[#0c1c17] text-sm font-medium" href="add-contact.html">Add Contact</a>
-      <a class="text-[#0c1c17] text-sm font-medium" href="signup.html">Sign Up</a>
-      <a class="text-[#0c1c17] text-sm font-medium" href="contact-profile.html">Profile</a>
-    </nav>
-    <div class="hamburger" id="hamburger-menu" aria-label="Open navigation" tabindex="0">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-    <nav class="mobile-nav flex-col gap-4 items-end px-8 py-4 absolute right-0 top-16 bg-[#f8fcfa] w-full hidden" id="mobile-nav">
-      <a class="text-[#0c1c17] text-base font-medium py-2" href="dashboard.html">Dashboard</a>
-      <a class="text-[#0c1c17] text-base font-medium py-2" href="contacts.html">Contacts</a>
-      <a class="text-[#0c1c17] text-base font-medium py-2" href="add-contact.html">Add Contact</a>
-      <a class="text-[#0c1c17] text-base font-medium py-2" href="signup.html">Sign Up</a>
-      <a class="text-[#0c1c17] text-base font-medium py-2" href="contact-profile.html">Profile</a>
-    </nav>
-  </header>
-  <script>
-    // Hamburger menu toggle
-    const hamburger = document.getElementById('hamburger-menu');
-    const mobileNav = document.getElementById('mobile-nav');
-    hamburger && hamburger.addEventListener('click', () => {
-      mobileNav.classList.toggle('hidden');
-    });
-    hamburger && hamburger.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') mobileNav.classList.toggle('hidden');
-    });
   </script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-bgMain min-h-screen font-sans text-textDark">
 
-  <main class="max-w-5xl mx-auto mt-12 bg-white rounded shadow p-8 relative z-10">
-    <h1 class="text-3xl font-bold mb-4">Welcome to ContactVault!</h1>
-    <div id="dashboard-quote"></div>
-    <p class="text-gray-700 mb-8">Manage all your contacts efficiently and securely.</p>
+<!-- LOGIN -->
+<div id="login-fullscreen" class="fixed inset-0 flex flex-col items-center justify-center bg-bgMain z-50">
+  <h1 class="text-4xl font-extrabold text-primary mb-6">Welcome to ContactVault</h1>
+  <form id="login-form" class="bg-white p-8 rounded-2xl shadow-lg w-full max-w-md space-y-5">
+    <h2 class="text-2xl font-bold text-center">Login to ContactVault</h2>
+    <div>
+      <label for="email" class="block font-semibold mb-1">Email</label>
+      <input id="email" type="email" required class="w-full border border-accent bg-bgMain rounded-lg px-4 py-3 text-sm" placeholder="Enter your email">
+    </div>
+    <div>
+      <label for="password" class="block font-semibold mb-1">Password</label>
+      <div class="relative">
+        <input id="password" type="password" required class="w-full border border-accent bg-bgMain rounded-lg px-4 py-3 text-sm pr-10" placeholder="Enter your password">
+        <button id="toggle-password" type="button" class="absolute top-1/2 right-3 -translate-y-1/2 text-primary">
+          <svg id="eye-open" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 5C7 5 2.73 8.11 1 12c1.73 3.89 6 7 11 7s9.27-3.11 11-7c-1.73-3.89-6-7-11-7zm0 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10zm0-8a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/>
+          </svg>
+          <svg id="eye-closed" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 24 24" style="display:none;">
+            <path d="M1 12c1.73-3.89 6-7 11-7s9.27 3.11 11 7c-1.73 3.89-6 7-11 7s-9.27-3.11-11-7zm11-5a5 5 0 1 1 0 10 5 5 0 0 1 0-10z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <button type="submit" class="w-full bg-primary text-white py-3 rounded-lg font-semibold hover:bg-emerald-700 transition">Login</button>
+    <p id="login-message" class="text-sm text-center"></p>
+    <p class="text-sm text-center">Don’t have an account? <a href="signup.html" class="text-primary font-semibold hover:underline">Sign up here</a></p>
+  </form>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard-section" style="display:none">
+  <header class="flex justify-between items-center border-b px-8 py-4 shadow-sm bg-white">
+    <div class="flex items-center gap-3">
+      <svg class="w-5 h-5 text-primary" viewBox="0 0 48 48" fill="currentColor"><path d="M24 4H42V17.3333V30.6667H24V44H6V30.6667V17.3333H24V4Z"/></svg>
+      <span class="font-bold text-lg text-primary">ContactVault</span>
+    </div>
+    <nav class="hidden md:flex gap-6 text-sm font-medium">
+      <a href="dashboard.html">Dashboard</a>
+      <a href="contacts.html">Contacts</a>
+      <a href="add-contact.html">Add Contact</a>
+    
+      <a href="contact-profile.html">Profile</a>
+    </nav>
+    <div class="hamburger md:hidden" id="hamburger-menu">
+      <span></span><span></span><span></span>
+    </div>
+  </header>
+
+  <nav class="mobile-nav hidden flex-col items-end bg-bgMain px-6 py-4" id="mobile-nav">
+    <a href="dashboard.html">Dashboard</a>
+    <a href="contacts.html">Contacts</a>
+    <a href="add-contact.html">Add Contact</a>
+   
+    <a href="contact-profile.html">Profile</a>
+  </nav>
+
+  <main class="p-8">
+    <div class="mb-8 bg-gradient-to-r from-primary to-accent text-white p-6 rounded-xl shadow-lg flex flex-col sm:flex-row justify-between items-center gap-4">
+      <div>
+        <h2 class="text-2xl font-bold">Welcome back👋</h2>
+      </div>
+      <div class="flex gap-4">
+        <span class="bg-white text-primary px-4 py-2 rounded-lg font-semibold shadow">Logged in</span>
+        <span class="bg-white text-primary px-4 py-2 rounded-lg font-semibold shadow">10 Contacts</span>
+      </div>
+    </div>
+
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-      <!-- Total Contacts -->
-      <a href="contacts.html" class="bg-[#f8fcfa] border border-[#e6f4ef] rounded p-6 flex flex-col items-center hover:shadow-lg transition cursor-pointer">
-        <span class="text-4xl text-[#019863] mb-2">👥</span>
+      <a href="contacts.html" class="bg-white border border-accent rounded-xl p-6 flex flex-col items-center hover:shadow-xl transition cursor-pointer">
+        <span class="text-5xl text-primary mb-2">👥</span>
         <span class="font-semibold text-lg mb-1">Total Contacts</span>
         <span class="text-2xl font-bold">10</span>
       </a>
-      <!-- Favorites (example: 2) -->
-      <a href="contacts.html#favorites" class="bg-[#f8fcfa] border border-[#e6f4ef] rounded p-6 flex flex-col items-center hover:shadow-lg transition cursor-pointer">
-        <span class="text-4xl text-[#019863] mb-2">⭐</span>
+      <a href="contacts.html#favorites" class="bg-white border border-accent rounded-xl p-6 flex flex-col items-center hover:shadow-xl transition cursor-pointer">
+        <span class="text-5xl text-primary mb-2">⭐</span>
         <span class="font-semibold text-lg mb-1">Favorites</span>
         <span class="text-2xl font-bold">2</span>
       </a>
-      <!-- Inactive Contacts (example: 3) -->
-      <a href="contacts.html#inactive" class="bg-[#f8fcfa] border border-[#e6f4ef] rounded p-6 flex flex-col items-center hover:shadow-lg transition cursor-pointer">
-        <span class="text-4xl text-[#019863] mb-2">⏸️</span>
+      <a href="contacts.html#inactive" class="bg-white border border-accent rounded-xl p-6 flex flex-col items-center hover:shadow-xl transition cursor-pointer">
+        <span class="text-5xl text-primary mb-2">⏸️</span>
         <span class="font-semibold text-lg mb-1">Inactive</span>
         <span class="text-2xl font-bold">3</span>
       </a>
-      <!-- Companies (example: 10) -->
-      <a href="contacts.html#companies" class="bg-[#f8fcfa] border border-[#e6f4ef] rounded p-6 flex flex-col items-center hover:shadow-lg transition cursor-pointer">
-        <span class="text-4xl text-[#019863] mb-2">🏢</span>
+      <a href="contacts.html#companies" class="bg-white border border-accent rounded-xl p-6 flex flex-col items-center hover:shadow-xl transition cursor-pointer">
+        <span class="text-5xl text-primary mb-2">🏢</span>
         <span class="font-semibold text-lg mb-1">Companies</span>
         <span class="text-2xl font-bold">10</span>
       </a>
     </div>
-    <div class="flex flex-wrap gap-4 justify-center mt-8">
-      <a href="add-contact.html"
-         class="flex min-w-[120px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-6 bg-[#019863] text-[#f8fcfa] text-base font-bold leading-normal tracking-[0.015em] hover:bg-[#017a50] transition">
-        Add Contact
-      </a>
+
+    <div class="flex gap-4 justify-center mt-8">
+      <a href="add-contact.html" class="bg-primary text-white px-6 py-3 rounded-lg font-semibold shadow hover:bg-emerald-700 transition">Add Contact</a>
+      
+    </div>
+
+    <div class="bg-white rounded-xl p-6 shadow-md mt-10">
+      <h3 class="text-xl font-bold mb-4 text-primary">Recently Added Contacts</h3>
+      <ul class="space-y-3">
+        <li class="flex justify-between items-center"><span>Ravi Kumar</span><span class="text-sm text-gray-500">2 hours ago</span></li>
+        <li class="flex justify-between items-center"><span>Anjali Mehta</span><span class="text-sm text-gray-500">Yesterday</span></li>
+        <li class="flex justify-between items-center"><span>Rahul Sharma</span><span class="text-sm text-gray-500">2 days ago</span></li>
+      </ul>
+    </div>
+
+    <div class="bg-white rounded-xl p-6 shadow-md mt-10">
+      <h3 class="text-xl font-bold mb-4 text-primary">Weekly Contact Stats</h3>
+      <canvas id="contactsChart" height="100"></canvas>
+    </div>
+
+    <div class="bg-accent/20 border border-accent p-4 rounded-xl mt-10 text-center shadow-sm">
+      <p class="font-semibold text-primary text-lg">
+        Want to organize your contacts better?
+        <a href="add-contact.html" class="underline hover:text-emerald-800">Add More Contacts</a> now and tag them by company or category!
+      </p>
     </div>
   </main>
+</div>
 
-  <script>
-    // Motivational quotes
-    const quotes = [
-      "“Great things are done by a series of small things brought together.” – Vincent Van Gogh",
-      "“Your network is your net worth.” – Porter Gale",
-      "“Stay connected, stay inspired.”",
-      "“Every contact is a new opportunity.”",
-      "“Organization is the key to success.”"
-    ];
-    document.getElementById('dashboard-quote').textContent = quotes[Math.floor(Math.random()*quotes.length)];
-
-    // Confetti effect on load
-    function launchConfetti() {
-      const container = document.getElementById('confetti-container');
-      for (let i = 0; i < 42; i++) {
-        const el = document.createElement('div');
-        el.className = 'confetti-piece';
-        el.style.left = (Math.random() * 100) + 'vw';
-        el.style.background = [
-          'linear-gradient(135deg, #34d399, #019863)',
-          'linear-gradient(135deg, #fbbf24, #f472b6)',
-          'linear-gradient(135deg, #3b82f6, #34d399)',
-          'linear-gradient(135deg, #f472b6, #fbbf24)'
-        ][Math.floor(Math.random()*4)];
-        el.style.animationDelay = (Math.random()*0.5) + 's';
-        container.appendChild(el);
-        setTimeout(() => { el.remove(); }, 1300);
-      }
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    // Show login page if not logged in
+    function showLogin(show) {
+      document.getElementById('login-fullscreen').style.display = show ? 'flex' : 'none';
+      document.getElementById('dashboard-section').style.display = show ? 'none' : '';
     }
-    window.addEventListener('DOMContentLoaded', launchConfetti);
-  </script>
+
+    if (localStorage.getItem('isLoggedIn') === 'true') {
+      showLogin(false);
+    } else {
+      showLogin(true);
+    }
+
+    // Password toggle
+    const togglePwd = document.getElementById('toggle-password');
+    if (togglePwd) {
+      const pwd = document.getElementById('password');
+      const eyeOpen = document.getElementById('eye-open');
+      const eyeClosed = document.getElementById('eye-closed');
+
+      togglePwd.addEventListener('click', function () {
+        if (pwd.type === 'password') {
+          pwd.type = 'text';
+          eyeOpen.style.display = 'none';
+          eyeClosed.style.display = 'block';
+        } else {
+          pwd.type = 'password';
+          eyeOpen.style.display = 'block';
+          eyeClosed.style.display = 'none';
+        }
+      });
+    }
+
+    // Login form
+    const loginForm = document.getElementById('login-form');
+    loginForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const msg = document.getElementById('login-message');
+
+      if (email === "nnm23ad005@nmamit.in" && password === "password123") {
+        localStorage.setItem('isLoggedIn', 'true');
+        showLogin(false);
+      } else {
+        msg.textContent = "Invalid email or password.";
+        msg.className = "text-center text-red-600 text-sm mt-2";
+      }
+    });
+
+    // Hamburger toggle
+    const hamburger = document.getElementById('hamburger-menu');
+    const mobileNav = document.getElementById('mobile-nav');
+    hamburger?.addEventListener('click', () => {
+      mobileNav?.classList.toggle('hidden');
+    });
+
+    // Update time
+    const dateTime = document.getElementById("date-time");
+    if (dateTime) {
+      dateTime.textContent = new Date().toLocaleString('en-IN', {
+        weekday: 'long', year: 'numeric', month: 'long', day: 'numeric',
+        hour: '2-digit', minute: '2-digit'
+      });
+    }
+
+    // Chart
+    const ctx = document.getElementById('contactsChart');
+    if (ctx) {
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+          datasets: [{
+            label: 'Contacts Added',
+            data: [2, 3, 1, 5, 4, 1, 2],
+            borderColor: '#019863',
+            backgroundColor: 'rgba(1, 152, 99, 0.2)',
+            tension: 0.4,
+            fill: true
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: { legend: { display: false } }
+        }
+      });
+    }
+  });
+</script>
 </body>
 </html>
